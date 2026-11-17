@@ -1,0 +1,39 @@
+# Environment and secret files
+.env
+02.env
+*.env.local
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+*.egg-info/
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+*.backup
+bookloop_database_export.json
+
+# Archives and binaries
+*.zip
+*.exe
+
+# Frontend dependencies and builds
+node_modules/
+dist/
+build/
+.next/
+out/
+.cache/
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
