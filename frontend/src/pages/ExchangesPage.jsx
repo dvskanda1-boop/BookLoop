@@ -23,8 +23,8 @@ export const ExchangesPage = ({ onSuccess }) => {
       api.getOutgoingExchanges()
     ])
       .then(([inc, out]) => {
-        setIncoming(inc);
-        setOutgoing(out);
+        setIncoming(Array.isArray(inc) ? inc : (inc?.exchanges || []));
+        setOutgoing(Array.isArray(out) ? out : (out?.exchanges || []));
       })
       .catch(err => setError(err.message || 'Failed to load exchange requests.'))
       .finally(() => setLoading(false));

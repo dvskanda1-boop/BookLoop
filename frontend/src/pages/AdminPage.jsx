@@ -39,9 +39,11 @@ export const AdminPage = ({ onSuccess }) => {
       api.getDeliveryRules()
     ])
       .then(([s, u, ords, rules]) => {
-        setStats(s);
-        setUsersList(u);
-        setOrdersList(ords);
+        const safeUsers = Array.isArray(u) ? u : (u?.users || []);
+        const safeOrders = Array.isArray(ords) ? ords : (ords?.orders || []);
+        setStats(s || {});
+        setUsersList(safeUsers);
+        setOrdersList(safeOrders);
         setDeliveryRules(rules);
         if (rules) {
           setBaseFee(rules.base_fee);
@@ -49,8 +51,8 @@ export const AdminPage = ({ onSuccess }) => {
           setPer250gRate(rules.per_250g_rate);
           setFreeThreshold(rules.free_delivery_threshold);
         }
-        if (u.length > 0 && !selectedUserId) {
-          setSelectedUserId(u[0].id);
+        if (safeUsers.length > 0 && !selectedUserId) {
+          setSelectedUserId(safeUsers[0].id);
         }
       })
       .catch(err => setError(err.message || 'Failed to load admin stats.'))

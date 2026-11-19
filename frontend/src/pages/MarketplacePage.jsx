@@ -26,8 +26,8 @@ export const MarketplacePage = ({ onSelectBook, initialSearchQuery = '' }) => {
   // Load Categories on mount
   useEffect(() => {
     api.getCategories()
-      .then(cats => setCategories(cats))
-      .catch(() => {});
+      .then(cats => setCategories(Array.isArray(cats) ? cats : []))
+      .catch(() => setCategories([]));
   }, []);
 
   // Update search if initialSearchQuery changes from Navbar
@@ -55,7 +55,7 @@ export const MarketplacePage = ({ onSelectBook, initialSearchQuery = '' }) => {
         limit: 50
       })
       .then(data => {
-        if (isMounted) setBooks(data);
+        if (isMounted) setBooks(Array.isArray(data) ? data : (data?.books || []));
       })
       .catch(err => {
         if (isMounted) setError(err.message || 'Failed to load books.');

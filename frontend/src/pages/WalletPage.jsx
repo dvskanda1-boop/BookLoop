@@ -162,7 +162,7 @@ export const WalletPage = () => {
               <div key={n} className="h-14 bg-stone-100 rounded-2xl animate-pulse"></div>
             ))}
           </div>
-        ) : balanceData?.transactions && balanceData.transactions.length > 0 ? (
+        ) : Array.isArray(balanceData?.transactions) && balanceData.transactions.length > 0 ? (
           <div className="bg-white rounded-3xl border border-stone-200 overflow-hidden shadow-xs">
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse text-xs">

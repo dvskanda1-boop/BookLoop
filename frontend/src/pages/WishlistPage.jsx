@@ -23,7 +23,7 @@ export const WishlistPage = ({ onSelectBook, onExploreMarketplace }) => {
     setError(null);
     try {
       const data = await api.getWishlist();
-      setItems(data);
+      setItems(Array.isArray(data) ? data : []);
     } catch (err) {
       setError(err.message || 'Could not load your saved wishlist.');
     } finally {

@@ -58,8 +58,9 @@ export const CartProvider = ({ children }) => {
     }
     try {
       const items = await api.getWishlist();
-      setWishlistCount(items.length);
-      setWishlistBookIds(new Set(items.map(i => i.book_id)));
+      const safeItems = Array.isArray(items) ? items : [];
+      setWishlistCount(safeItems.length);
+      setWishlistBookIds(new Set(safeItems.map(i => i.book_id)));
     } catch (err) {
       console.warn('Could not load wishlist:', err.message);
     }

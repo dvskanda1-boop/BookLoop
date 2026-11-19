@@ -16,7 +16,7 @@ export const BookshelfPage = ({ setActivePage, setSelectedBook, onSuccess }) => 
     setLoading(true);
     setActionError(null);
     api.getMyBookshelf()
-      .then(res => setBooks(res))
+      .then(res => setBooks(Array.isArray(res) ? res : (res?.books || [])))
       .catch(err => setActionError(err.message || 'Could not load bookshelf.'))
       .finally(() => setLoading(false));
   };

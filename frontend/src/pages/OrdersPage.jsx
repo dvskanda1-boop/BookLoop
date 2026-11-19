@@ -33,10 +33,10 @@ export const OrdersPage = ({ onSelectBook }) => {
     try {
       if (activeTab === 'purchases') {
         const data = await api.getMyOrders();
-        setPurchases(data);
+        setPurchases(Array.isArray(data) ? data : []);
       } else {
         const data = await api.getMySales();
-        setSales(data);
+        setSales(Array.isArray(data) ? data : []);
       }
     } catch (err) {
       setError(err.message || 'Failed to load order history');

@@ -43,12 +43,12 @@ export const ProductDetailPage = ({ bookId, onBack, onSelectBook, onBuyNow, onAs
 
         // Load similar books
         api.getSimilarBooks(bookId)
-          .then(res => { if (isMounted) setSimilarBooks(res); })
+          .then(res => { if (isMounted) setSimilarBooks(Array.isArray(res) ? res : []); })
           .catch(() => {});
 
         // Load reviews
         api.getBookReviews(bookId)
-          .then(res => { if (isMounted) setReviews(res); })
+          .then(res => { if (isMounted) setReviews(Array.isArray(res) ? res : []); })
           .catch(() => {});
 
         // Run initial delivery estimate
