@@ -374,6 +374,16 @@ function handleMockFallback(endpoint, options = {}) {
     };
   }
 
+  // 17. Addresses Fallback
+  if (endpoint.startsWith('/addresses')) {
+    return [];
+  }
+
+  // 18. Health check fallback
+  if (endpoint.startsWith('/health') || endpoint.startsWith('/api/health')) {
+    return { status: 'offline_fallback', version: '2.0.0' };
+  }
+
   return undefined;
 }
 
@@ -522,5 +532,5 @@ export const api = {
 
   // Users
   getPublicProfile: (userId) => request(`/users/${userId}/public-profile`),
-  healthCheck: () => request('/api/health')
+  healthCheck: () => request('/health')
 };

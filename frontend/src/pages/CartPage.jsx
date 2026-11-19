@@ -34,8 +34,9 @@ export const CartPage = ({ onExploreMarketplace, onOrderCompleted }) => {
     if (isAuthenticated) {
       api.getAddresses()
         .then(res => {
-          setAddresses(res);
-          const def = res.find(a => a.is_default) || res[0];
+          const safeRes = Array.isArray(res) ? res : (res?.addresses || []);
+          setAddresses(safeRes);
+          const def = safeRes.find(a => a.is_default) || safeRes[0];
           if (def) {
             setSelectedAddressId(def.id);
             setNewPin(def.pincode);

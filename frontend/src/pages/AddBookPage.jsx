@@ -34,8 +34,9 @@ export const AddBookPage = ({ setActivePage, onSuccess }) => {
   useEffect(() => {
     api.getCategories()
       .then(cats => {
-        setCategories(cats);
-        if (cats.length > 0) setCategoryId(cats[0].id);
+        const safeCats = Array.isArray(cats) ? cats : [];
+        setCategories(safeCats);
+        if (safeCats.length > 0) setCategoryId(safeCats[0].id);
       })
       .catch(err => console.warn(err));
   }, []);

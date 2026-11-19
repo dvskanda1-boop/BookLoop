@@ -9,6 +9,7 @@ import { ProductDetailPage } from './components/ProductDetailPage';
 import { LandingPage } from './pages/LandingPage';
 import { MarketplacePage } from './pages/MarketplacePage';
 import { SellBookPage } from './pages/SellBookPage';
+import { AddBookPage } from './pages/AddBookPage';
 import { CartPage } from './pages/CartPage';
 import { OrdersPage } from './pages/OrdersPage';
 import { WishlistPage } from './pages/WishlistPage';
@@ -31,6 +32,7 @@ const pathToPageMap = {
   '/explore': 'marketplace',
   '/sell': 'sell-book',
   '/sell-book': 'sell-book',
+  '/add-book': 'add-book',
   '/cart': 'cart',
   '/orders': 'orders',
   '/wishlist': 'wishlist',
@@ -49,6 +51,7 @@ const pageToPathMap = {
   'landing': '/',
   'marketplace': '/marketplace',
   'sell-book': '/sell',
+  'add-book': '/add-book',
   'cart': '/cart',
   'orders': '/orders',
   'wishlist': '/wishlist',
@@ -240,6 +243,17 @@ const MainLayout = () => {
             setActivePage={navigateTo}
             setSelectedBook={(b) => handleSelectBook(b.id)}
             onSuccess={showToast}
+          />
+        );
+
+      case 'add-book':
+        return (
+          <AddBookPage
+            setActivePage={navigateTo}
+            onSuccess={(msg) => {
+              showToast(msg || 'Book listed successfully!');
+              navigateTo('bookshelf');
+            }}
           />
         );
 
