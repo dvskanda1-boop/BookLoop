@@ -63,8 +63,13 @@ def test_user_registration(db):
     assert res["access_token"] is not None
 
 def test_get_books_and_search(db):
-    all_books = get_books(db=db)
-    assert len(all_books) >= 10
+    # Query all books (including sold ones) to verify seeding is correct
+    all_books_incl_sold = get_books(available_only=False, db=db)
+    assert len(all_books_incl_sold) >= 10, f"Expected >= 10 total seeded books, got {len(all_books_incl_sold)}"
+
+    # Available books must have at least 1 (may vary with test order due to order/exchange tests)
+    available_books = get_books(db=db)
+    assert len(available_books) >= 1, "Expected at least 1 available book in marketplace"
 
     search_books = get_books(search="Data", db=db)
     assert len(search_books) > 0
